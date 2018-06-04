@@ -79,7 +79,7 @@ public class DataRainA extends RelativeLayout {
                 @Override
                 public void run() {
                     int lastValue = textView.getMeasuredHeight() > getMeasuredHeight() ? textView.getMeasuredHeight() : getMeasuredHeight();
-                    ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "y", -textView.getMeasuredHeight(), lastValue);
+                    final ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "y", -textView.getMeasuredHeight(), lastValue);
                     objectAnimator.setDuration(random.nextInt(5000) + 5000);
                     objectAnimator.setInterpolator(new LinearInterpolator());
                     objectAnimator.addListener(new AnimatorListenerAdapter() {
@@ -92,6 +92,7 @@ public class DataRainA extends RelativeLayout {
                         public void onAnimationEnd(Animator animation) {
                             //动画结束后移除textView
                             removeView(textView);
+                            objectAnimator.cancel();
                         }
                     });
                     objectAnimator.start();
